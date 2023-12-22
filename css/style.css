@@ -1,45 +1,134 @@
-:root {
+/* :root {
 
-}
+} */
 
+/* 
+This is bad. I'd say that you never want to apply and styles to * and it will for sure get you into trouble later / force you to do some weird things.
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+  } */
 
+/* This is fine since it's just a color, but I would definitely not add any other styles here. A better approach would be to wrap ALL of your html markup within the <body> tag in another element that gets the background color.
+Something like this:
+
+<body>
+  <header></header>
+  <main>
+    <div class="apply-background-color-here-class">
+      <!-- all of your html markup -->
+      </div>    
+  </main>
+</body>
+
+Or, create a css class called "background" or something that you would apply to the <header> and <layout> elements individually.
+*/
 body {
     background-color: rgb(43, 45, 56);
 }
 
-div {
+/* Since <div> is your bread and butter HTML element, this will get you into trouble later if you ever need to apply a non-flex <div> element. */
+/* div {
     display: flex;
-}
+} */
 
-main {
+/* It's generally not a good idea to apply any styles to your <main> element. Any layout-related css should be isolated to a specific container-esque element. (see .new-card-container) */
+/* main {
     display: flex;
     flex-wrap: wrap;
     position: relative;
-}
+} */
 
+/* This is ok for the purposes of this example, but normally you'd probably want to wrap your <h1> element in another div that you apply the "flex" and "margin" rules to, rather than adding layout-type styles directly to <h1>.
+Color and size can stay on <h1> since semantically that's what you're actually altering. */
 header h1 {
     display: flex;
     justify-content: center;
     font-size: 200%;
     margin: 30px;
-    color: rgb(158, 124, 218);
 }
 
+/* Same comments as above */
 header p {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: 50px;
     text-align: center;
+}
+
+/* This makes more sense to keep any padding isolated to a layout element */
+.layout {
+    padding: 24px;
+}
+
+/* Only have to define this color once, instead of adding it to individual css classes. (DRY principle) */
+.purple { 
     color: rgb(192, 166, 236);
 }
 
-.card {
+/* Only have to define this color once, instead of adding it to individual css classes. (DRY principle) */
+.purple-dark { 
+    color: rgb(158, 124, 218);
+}
+
+/* It makes sense to apply your flex rules to a specific layout element like this. */
+.new-card-container { 
+    display: flex;
+    flex-wrap: wrap;
+    /* also, gap is cool. i just found out it exists, but for years i've been doing janky shit to make this happen lol (look up :nth-child) */
+    gap: 50px;
+}
+
+/* Need position: relative here because our child element .new-card-header will be getting position: absolute */
+.new-card {
+    display: block;
+    position: relative;
+    /* applying this rule will break everything... that's why your layout looks so messed up and nothing is wrapping correctly. don't do this */
+    /* max-width: calc(33.33% - 100px);  */
+}
+
+/* Do stuff to header */
+.new-card-header {
+    border: 2px solid white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 auto;  /* horizontally centers the element */
+    width: 75%; 
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%); /* vertically centers the element, relative to its parent .new-card (left: 0 and right: 0 properties are needed for this to work) */
+    background-color: rgb(43, 45, 56);
+}
+
+/* Horizontally center header text */
+.new-card-header h2 {
+    text-align: center;
+}
+
+/* (Could also use a more flexbox approach to the above using this css instead) */
+/* .new-card-header h2 {
+    display: flex;
+    justify-content: center; horizontally align
+    align-items: center; vertically align
+} */
+
+/* Vertically stack the content of .new-card-inner using flex-direction: column */
+.new-card-inner {
+    display: flex;
+    flex-direction: column;
+    border: 2px dashed white;
+    padding: 40px 10px 10px 10px;
+}
+
+.new-card-content {
+    padding-bottom: 10px;
+}
+
+/* .card {
     padding: 8px;
     display: flex;
     flex: 1 0 calc(33.33% - 100px); 
@@ -67,8 +156,9 @@ header p {
 .card-desc {
     margin: 10px;
     padding: 5px;
-}
+} */
 
+/* I left this untouched */
 .card-code {
     background: linear-gradient(to bottom, rgb(130, 3, 241), rgb(192, 166, 236));
     padding: 10px;
@@ -79,19 +169,26 @@ header p {
     border: 2px solid black;
 }
 
-.card p {
+/* .card p {
     color: rgb(192, 166, 236);
 }
 
 .card h2 {
     color: rgb(192, 166, 236);
     font-size: 132%;
-}
+} */
 
 
 footer {
     text-align: center;
     margin: 50px;
-    color: rgb(158, 124, 218);
-    font-size: 125%;
+    font-size: 125%; /* percentage font sizes are weird */
 }
+
+/* could also make this a flex element, like this */
+/* footer {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    font-size: 24px; 
+} */
