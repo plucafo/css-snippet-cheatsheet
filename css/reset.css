@@ -1,29 +1,34 @@
+/* Do not apply margin or padding to *, this will cause you big problems later */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  html {
+  /* I don't think this is necessary */
+  /* html {
     height: 100%;
-  }
+  } */
   
   body {
-    min-height: 100%;
-    line-height: 1;
+    /* min-height: 100%;  */ /* Don't do this */
+    /* line-height: 1; */ /* Don't do this */
     font-family: sans-serif;
   }
   
+  /* I wouldn't use a % font-size */
   h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
+    font-size: 100%; 
   }
   
+  /* I wouldn't use a % font-size */
   input, select, option, optgroup, textarea, button,
   pre, code {
     font-size: 100%;
-    font-family: inherit;
+    /* font-family: inherit; */   /* I think this is the default value for font-family. But since you don't define any font-family in your css, this is not necessary */
   }
   
+  /* You don't have any <ol> or <ul> in your markup; this isn't necessary */
   ol, ul {
     list-style: none;
   }
